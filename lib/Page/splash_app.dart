@@ -15,7 +15,7 @@ class _SplashAppState extends State<SplashApp> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 1), () {
+    Timer(Duration(seconds: 2), () {
       Get.off(() => Home());
     });
   }

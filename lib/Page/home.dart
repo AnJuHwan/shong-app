@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:shong_app/Widget/home_item.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatefulWidget {
@@ -15,7 +16,8 @@ class _HomeState extends State<Home> {
   final List page = [HomePage(), SecondPage(), ThirdPage()];
   @override
   Widget build(BuildContext context) {
-    final width = Get.width;
+    final double width = Get.width;
+    final double height = Get.height;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -121,7 +123,7 @@ Widget HomePage() {
             ],
           ),
         ),
-        Text('1번째')
+        HomeItem()
       ],
     ),
   );
