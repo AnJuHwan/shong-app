@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeItem extends StatefulWidget {
-  final String text;
-  const HomeItem({Key? key, required this.text}) : super(key: key);
+  final String title;
+  const HomeItem({Key? key, required this.title}) : super(key: key);
 
   @override
   _HomeItemState createState() => _HomeItemState();
@@ -12,6 +12,7 @@ class HomeItem extends StatefulWidget {
 class _HomeItemState extends State<HomeItem> {
   @override
   Widget build(BuildContext context) {
+    print(widget.title);
     final double width = Get.width;
     final double height = Get.height;
     return Container(
@@ -34,7 +35,7 @@ class _HomeItemState extends State<HomeItem> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(widget.text),
+                  Text(widget.title),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [

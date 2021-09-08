@@ -14,14 +14,15 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
+final double width = Get.width;
+final double height = Get.height;
+
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
 
-  final List page = [HomePage(), SecondPage(), ThirdPage()];
   @override
   Widget build(BuildContext context) {
-    final double width = Get.width;
-    final double height = Get.height;
+    final List page = [HomePage(), SecondPage(), ThirdPage()];
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -131,6 +132,7 @@ Widget HomePage() {
             ),
             Column(
               children: items.map((e) => e).toList(),
+              //게시글 아이템 들어갈 자리
             )
           ],
         ),
