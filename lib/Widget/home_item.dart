@@ -17,14 +17,14 @@ class _HomeItemState extends State<HomeItem> {
     return Container(
       height: height * 0.70,
       child: ListView.separated(
-          itemBuilder: (_, index) => Item(),
+          itemBuilder: (_, index) => item(),
           separatorBuilder: (_, index) => Divider(),
           itemCount: 5),
     );
   }
 }
 
-Widget Item() {
+Widget item() {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 5),
     width: width,

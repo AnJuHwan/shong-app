@@ -66,7 +66,7 @@ class _HomeState extends State<Home> {
   }
 }
 
-Widget PostingButton() {
+Widget postingButton() {
   return Container(
     child: Text('게시물 작성하기'),
     color: Colors.red,
