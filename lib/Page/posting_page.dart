@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shong_app/Page/home.dart';
+import 'package:shong_app/Page/home_page.dart';
 import 'package:shong_app/Widget/home_item.dart';
 
 class PostingPage extends StatefulWidget {
@@ -35,10 +36,7 @@ class _PostingPageState extends State<PostingPage> {
             ),
             actions: [
               GestureDetector(
-                onTap: () {
-                  Get.to(() => Home());
-                  HomeItem(title: title);
-                },
+                onTap: () {},
                 child: Center(
                   child: Container(
                     margin: EdgeInsets.only(right: 10),
