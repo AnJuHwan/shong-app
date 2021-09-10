@@ -16,6 +16,7 @@ class _PostingPageState extends State<PostingPage> {
   String posting = '';
 
   final double width = Get.width;
+  Controller controller = Get.put(Controller());
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -36,14 +37,22 @@ class _PostingPageState extends State<PostingPage> {
             actions: [
               GestureDetector(
                 onTap: () {
-                  Get.put(Controller()).title.add(title);
-                  Get.to(() => Home());
+                  posting.length != 0 ? posting : '';
+
+                  if (title.length == 0) {
+                    return;
+                  } else {
+                    controller.title.add(title);
+                    controller.post.add(posting);
+                    Get.to(() => Home());
+                  }
                 },
                 child: Center(
                   child: Container(
                     margin: EdgeInsets.only(right: 10),
                     decoration: BoxDecoration(
-                      color: Colors.amber,
+                      color:
+                          title.length == 0 ? Colors.grey[300] : Colors.amber,
                       borderRadius: BorderRadius.circular(5),
                     ),
                     height: 30,
@@ -53,7 +62,9 @@ class _PostingPageState extends State<PostingPage> {
                         '완료',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Colors.black,
+                          color: title.length == 0
+                              ? Colors.black.withOpacity(0.2)
+                              : Colors.black,
                         ),
                       ),
                     ),
@@ -62,51 +73,62 @@ class _PostingPageState extends State<PostingPage> {
               ),
             ],
           ),
-          body: Container(
-            child: Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(width: 0.1),
+          body: SingleChildScrollView(
+            child: Container(
+              child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(width: 0.1),
+                      ),
+                    ),
+                    padding: EdgeInsets.only(left: 5),
+                    child: TextField(
+                      onChanged: (text) {
+                        setState(() {
+                          title = text;
+                        });
+                      },
+                      maxLength: 30,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: '제목을 입력해주세요',
+                      ),
                     ),
                   ),
-                  padding: EdgeInsets.only(left: 5),
-                  child: TextField(
-                    onChanged: (text) {
-                      setState(() {
-                        title = text;
-                      });
-                    },
-                    maxLength: 30,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: '제목을 입력해주세요',
+                  Container(
+                    padding: EdgeInsets.only(left: 5),
+                    child: TextField(
+                      onChanged: (text) {
+                        setState(() {
+                          posting = text;
+                        });
+                      },
+                      maxLength: 400,
+                      maxLines: 15,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: '게시글을 작성해주세요',
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(width: 0.1),
+                  Divider(),
+                  Container(
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: Text('이미지 업로드'),
                     ),
                   ),
-                  padding: EdgeInsets.only(left: 5),
-                  child: TextField(
-                    onChanged: (text) {
-                      setState(() {
-                        posting = text;
-                      });
-                    },
-                    maxLength: 400,
-                    maxLines: 15,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: '게시글을 작성해주세요',
+                  Divider(),
+                  Container(
+                    width: width * 0.5,
+                    child: Center(
+                      child: Image.asset('./images/test_1.png'),
                     ),
-                  ),
-                ),
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
