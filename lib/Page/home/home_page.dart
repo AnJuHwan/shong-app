@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:shong_app/Page/posting_page.dart';
-import 'package:shong_app/Widget/home_item.dart';
+import 'package:shong_app/Page/posting/posting_page.dart';
+import 'package:shong_app/Widget/posting/posting_item.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              HomeItem(),
+              PostingItem(),
             ],
           ),
         ),

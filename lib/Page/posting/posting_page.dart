@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:shong_app/GetX_Controller/getx_controller.dart';
+import 'package:shong_app/Page/home/home_page.dart';
+import 'package:shong_app/Widget/posting/posting_item.dart';
 
 class PostingPage extends StatefulWidget {
   const PostingPage({Key? key}) : super(key: key);
