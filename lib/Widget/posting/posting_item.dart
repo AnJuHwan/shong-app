@@ -11,6 +11,7 @@ class PostingItem extends StatefulWidget {
 
 final double width = Get.width;
 final double height = Get.height;
+Controller _controller = Get.put(Controller());
 
 class _PostingItemState extends State<PostingItem> {
   @override
@@ -18,13 +19,13 @@ class _PostingItemState extends State<PostingItem> {
     return Container(
       height: height * 0.70,
       child: ListView.separated(
-          itemBuilder: (_, index) => item(),
+          itemBuilder: (_, index) => item(index: index),
           separatorBuilder: (_, index) => Divider(),
-          itemCount: 5),
+          itemCount: Get.put(Controller()).title.length),
     );
   }
 
-  Widget item() {
+  Widget item({required int index}) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 5),
       width: width,
@@ -39,19 +40,21 @@ class _PostingItemState extends State<PostingItem> {
               fit: BoxFit.contain,
             ),
           ),
-          Container(
-            padding: EdgeInsets.all(5),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(''), //요기 텍스트 받아와야댐
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Icon(Icons.favorite),
-                  ],
-                )
-              ],
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.all(5),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Obx(() => Text('${_controller.title[index]}')),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(Icons.favorite),
+                    ],
+                  )
+                ],
+              ),
             ),
           )
         ],

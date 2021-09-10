@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
+        SingleChildScrollView(
           child: Column(
             children: [
               Container(
