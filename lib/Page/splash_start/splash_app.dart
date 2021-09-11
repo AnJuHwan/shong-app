@@ -1,8 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shong_app/Page/home.dart';
+import 'package:shong_app/Page/home/home.dart';
 
 class SplashApp extends StatefulWidget {
   SplashApp({Key? key}) : super(key: key);
