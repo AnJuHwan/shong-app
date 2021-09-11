@@ -15,15 +15,16 @@ final double height = Get.height;
 Controller _controller = Get.put(Controller());
 
 class _PostingItemState extends State<PostingItem> {
+  int length = Get.put(Controller()).title.length;
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height * 0.70,
-      child: ListView.separated(
+        height: height * 0.70,
+        child: ListView.separated(
+          itemCount: length,
           itemBuilder: (_, index) => item(index: index),
           separatorBuilder: (_, index) => Divider(),
-          itemCount: Get.put(Controller()).title.length),
-    );
+        ));
   }
 
   Widget item({required int index}) {
@@ -53,7 +54,21 @@ class _PostingItemState extends State<PostingItem> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Obx(() => Text('${_controller.title[index]}')),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Obx(() => Text('${_controller.title[index]}')),
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              length = _controller.title.length - 1;
+                            });
+                            _controller.title.remove(_controller.title[index]);
+                          },
+                          icon: Icon(Icons.delete),
+                        )
+                      ],
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
