@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shong_app/GetX_Controller/getx_controller.dart';
 import 'package:shong_app/Page/home/home_page.dart';
+import 'package:shong_app/Page/login/login_page.dart';
 import 'package:shong_app/Page/second/second_page.dart';
 import 'package:shong_app/Page/third/third_page.dart';
 
@@ -26,10 +28,18 @@ class _HomeState extends State<Home> {
           elevation: 0.5,
           title: Text('숑앱', style: TextStyle(color: Colors.black54)),
           actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.search),
-            )
+            Container(
+                margin: EdgeInsets.all(10),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Get.to(() => LoginPage());
+                  },
+                  child: Text('로그인하기', style: TextStyle(color: Colors.black54)),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.pink[50]),
+                    elevation: MaterialStateProperty.all(0),
+                  ),
+                ))
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -39,7 +49,6 @@ class _HomeState extends State<Home> {
           onTap: (index) {
             setState(() {
               _currentIndex = index;
-              print(_currentIndex);
             });
           },
           items: [

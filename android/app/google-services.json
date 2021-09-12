@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "82857432809",
+    "project_id": "shong-app",
+    "storage_bucket": "shong-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:82857432809:android:9b8c1c9477cbd5b163c278",
+        "android_client_info": {
+          "package_name": "com.example.shong_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "82857432809-4vcli0lfh5vi51518f75pos6gjhg5n83.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.shong_app",
+            "certificate_hash": "1111111111111111111111111111111111111111"
+          }
+        },
+        {
+          "client_id": "82857432809-l9o92kb182fa42ukrljceeu70l7ek91l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3OQ_gOxMoqFCkFGNaRRbbhoAut1PD2xU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "82857432809-l9o92kb182fa42ukrljceeu70l7ek91l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

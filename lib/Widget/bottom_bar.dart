@@ -44,31 +44,3 @@ class _BottomBarState extends State<BottomBar> {
     );
   }
 }
-
-/* 
-BottomNavigationBar(
-      fixedColor: Colors.black,
-      backgroundColor: Colors.red[50],
-      currentIndex: _currentIndex,
-      onTap: (index) {
-        setState(() {
-          _currentIndex = index;
-          print(_currentIndex);
-        });
-      },
-      items: [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: '홈',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.speaker_notes),
-          label: '자유게시판',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: '프로필',
-        )
-      ],
-    );
-*/
