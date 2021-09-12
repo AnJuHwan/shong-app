@@ -14,9 +14,9 @@ class FirebaseAuthSignUp extends GetxController {
       );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        print('비밀번호의 보안이 약합니다.');
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        print('이미 가입된 아이디가 있습니다');
       }
     } catch (e) {
       print(e);
