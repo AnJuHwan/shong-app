@@ -1,8 +1,6 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shong_app/GetX_Controller/auth_controller.dart';
-import 'package:shong_app/GetX_Controller/getx_controller.dart';
 import 'package:shong_app/Page/home/home.dart';
 
 class LoginPage extends StatefulWidget {
@@ -13,6 +11,7 @@ class LoginPage extends StatefulWidget {
 }
 
 bool _isLoginForm = true;
+String result = '${id}@naver.com';
 String id = '';
 String password = '';
 
@@ -73,6 +72,7 @@ class _LoginPageState extends State<LoginPage> {
           Container(
             margin: EdgeInsets.symmetric(vertical: 15),
             child: TextField(
+              obscureText: true,
               onChanged: (text) {},
               decoration: InputDecoration(
                 hintText: 'PASSWORD',
@@ -125,11 +125,11 @@ class _LoginPageState extends State<LoginPage> {
             child: TextField(
               onChanged: (text) {
                 setState(() {
-                  id = text;
+                  id = '${text}@naver.com';
                 });
               },
               decoration: InputDecoration(
-                hintText: '이메일로 입력해주세요',
+                hintText: '아이디',
                 contentPadding: EdgeInsets.only(left: 5),
               ),
             ),
@@ -142,6 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                   password = text;
                 });
               },
+              obscureText: true,
               decoration: InputDecoration(
                 hintText: '비밀번호',
                 contentPadding: EdgeInsets.only(left: 5),
@@ -160,7 +161,27 @@ class _LoginPageState extends State<LoginPage> {
           ),
           ElevatedButton(
             onPressed: () async {
-              _controller.singup(id, password);
+              _controller.singup(id, password).then((result) {
+                if (result == 'already') {
+                  return showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('AlertDialog'),
+                      content: const Text('이미가입'),
+                    ),
+                  );
+                } else if (result == 'ss') {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('AlertDialog'),
+                      content: const Text('비밀번호 보안 약함'),
+                    ),
+                  );
+                } else if (result == '성공') {
+                  Get.off(() => Home());
+                }
+              });
             },
             child: Text('회원가입완료'),
           ),
