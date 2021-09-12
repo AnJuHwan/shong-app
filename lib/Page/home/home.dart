@@ -27,6 +27,7 @@ class _HomeState extends State<Home> {
         appBar: AppBar(
           elevation: 0.5,
           title: Text('숑앱', style: TextStyle(color: Colors.black54)),
+          centerTitle: true,
           actions: [
             Container(
                 margin: EdgeInsets.all(10),
