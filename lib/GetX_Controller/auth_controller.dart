@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 class FirebaseAuthSignUp extends GetxController {
   final auth = FirebaseAuth.instance;
 
+  // 유저를 저장해야됨..
+
   Future<String> singup(email, password) async {
     try {
       UserCredential userCredential =
@@ -24,6 +26,7 @@ class FirebaseAuthSignUp extends GetxController {
       print('실패');
       return '실패';
     }
+
     return '성공';
   }
 }

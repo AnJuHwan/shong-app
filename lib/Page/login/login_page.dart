@@ -11,7 +11,7 @@ class LoginPage extends StatefulWidget {
 }
 
 bool _isLoginForm = true;
-String result = '${id}@naver.com';
+
 String id = '';
 String password = '';
 
@@ -179,6 +179,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   );
                 } else if (result == '성공') {
+                  print('$id $password');
+                  // id , password 를 user에 저장할거임
+                  // 그리고 @naver.com (이메일을 붙였을때 validation 설정 해야댐)
                   Get.off(() => Home());
                 }
               });
