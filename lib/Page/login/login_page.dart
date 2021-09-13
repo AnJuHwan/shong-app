@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shong_app/GetX_Controller/auth_controller.dart';
@@ -14,6 +15,20 @@ bool _isLoginForm = true;
 
 String id = '';
 String password = '';
+
+String loginId = '';
+String loginPassword = '';
+
+void currentUser() {
+  var currentUser = FirebaseAuth.instance.currentUser;
+
+  if (currentUser != null) {
+    Get.off(() => Home());
+    print(currentUser.uid);
+  } else {
+    print('로그인이 안되어있습니다.');
+  }
+}
 
 class _LoginPageState extends State<LoginPage> {
   FirebaseAuthSignUp _controller = Get.put(FirebaseAuthSignUp());
@@ -62,7 +77,9 @@ class _LoginPageState extends State<LoginPage> {
           Container(
             margin: EdgeInsets.symmetric(vertical: 15),
             child: TextField(
-              onChanged: (text) {},
+              onChanged: (text) {
+                loginId = text;
+              },
               decoration: InputDecoration(
                 hintText: 'ID',
                 contentPadding: EdgeInsets.only(left: 5),
@@ -73,7 +90,11 @@ class _LoginPageState extends State<LoginPage> {
             margin: EdgeInsets.symmetric(vertical: 15),
             child: TextField(
               obscureText: true,
-              onChanged: (text) {},
+              onChanged: (text) {
+                setState(() {
+                  loginPassword = text;
+                });
+              },
               decoration: InputDecoration(
                 hintText: 'PASSWORD',
                 contentPadding: EdgeInsets.only(left: 5),
@@ -81,7 +102,10 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              _controller.signin(loginId, loginPassword);
+              currentUser();
+            },
             child: Text('로그인하기'),
           ),
           Container(

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shong_app/GetX_Controller/getx_controller.dart';
@@ -19,6 +20,8 @@ final double height = Get.height;
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
 
+  var currentUser = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     final List page = [HomePage(), SecondPage(), ThirdPage()];
@@ -26,16 +29,23 @@ class _HomeState extends State<Home> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0.5,
-          title: Text('숑앱', style: TextStyle(color: Colors.black54)),
+          title: Text(currentUser == null ? '숑앱' : currentUser!.uid,
+              style: TextStyle(color: Colors.black54)),
           centerTitle: true,
           actions: [
             Container(
                 margin: EdgeInsets.all(10),
                 child: ElevatedButton(
-                  onPressed: () {
-                    Get.to(() => LoginPage());
+                  onPressed: () async {
+                    if (currentUser != null) {
+                      await FirebaseAuth.instance.signOut();
+                      print('로그아웃');
+                    } else if (currentUser == null) {
+                      Get.to(() => LoginPage());
+                    }
                   },
-                  child: Text('로그인하기', style: TextStyle(color: Colors.black54)),
+                  child: Text(currentUser != null ? '로그아웃' : '로그인하기',
+                      style: TextStyle(color: Colors.black54)),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.pink[50]),
                     elevation: MaterialStateProperty.all(0),
