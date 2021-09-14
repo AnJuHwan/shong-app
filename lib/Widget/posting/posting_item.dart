@@ -32,54 +32,57 @@ class _PostingItemState extends State<PostingItem> {
       onTap: () {
         Get.to(() => PostingDetail(index: index));
       },
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical: 5),
-        width: width,
-        height: 100,
-        color: Colors.red,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // 이미지 사진
-            Container(
-              child: Image.asset(
-                './images/test_1.png',
-                fit: BoxFit.contain,
-              ),
-            ),
-            ////
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.all(5),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Obx(() => Text('${_controller.title[index]}')),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              length = _controller.title.length - 1;
-                            });
-                            _controller.title.remove(_controller.title[index]);
-                          },
-                          icon: Icon(Icons.delete),
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Icon(Icons.favorite),
-                      ],
-                    )
-                  ],
+      child: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.symmetric(vertical: 5),
+          width: width,
+          height: 100,
+          color: Colors.red,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // 이미지 사진
+              Container(
+                child: Image.asset(
+                  './images/test_1.png',
+                  fit: BoxFit.contain,
                 ),
               ),
-            )
-          ],
+              ////
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Obx(() => Text('${_controller.title[index]}')),
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                length = _controller.title.length - 1;
+                              });
+                              _controller.title
+                                  .remove(_controller.title[index]);
+                            },
+                            icon: Icon(Icons.delete),
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Icon(Icons.favorite),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

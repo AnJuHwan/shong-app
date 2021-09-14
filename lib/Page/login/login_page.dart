@@ -18,13 +18,12 @@ String password = '';
 
 String loginId = '';
 String loginPassword = '';
+var currentUser = FirebaseAuth.instance.currentUser;
 
-void currentUser() {
-  var currentUser = FirebaseAuth.instance.currentUser;
-
+void currentUserFn() {
   if (currentUser != null) {
     Get.off(() => Home());
-    print(currentUser.uid);
+    print(currentUser!.uid);
   } else {
     print('로그인이 안되어있습니다.');
   }
@@ -103,8 +102,18 @@ class _LoginPageState extends State<LoginPage> {
           ),
           ElevatedButton(
             onPressed: () {
-              _controller.signin(loginId, loginPassword);
-              currentUser();
+              // _controller.signin(loginId, loginPassword);
+
+              _controller.signin(loginId, loginPassword).then((value) {
+                if (value == 'not-found') {
+                  // 가입된 아이디를 찾을 수 없습니다.
+                } else if (value == 'wrong-password') {
+                  // 비밀번호가 잘못 되었습니다.
+                } else if (value == '성공') {
+                  // Home으로 돌아가기
+                  currentUserFn();
+                }
+              });
             },
             child: Text('로그인하기'),
           ),

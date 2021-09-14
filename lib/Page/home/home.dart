@@ -29,8 +29,7 @@ class _HomeState extends State<Home> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0.5,
-          title: Text(currentUser == null ? '숑앱' : currentUser!.uid,
-              style: TextStyle(color: Colors.black54)),
+          title: Text('숑앱', style: TextStyle(color: Colors.black54)),
           centerTitle: true,
           actions: [
             Container(
@@ -39,6 +38,9 @@ class _HomeState extends State<Home> {
                   onPressed: () async {
                     if (currentUser != null) {
                       await FirebaseAuth.instance.signOut();
+                      setState(() {
+                        currentUser = null;
+                      });
                       print('로그아웃');
                     } else if (currentUser == null) {
                       Get.to(() => LoginPage());

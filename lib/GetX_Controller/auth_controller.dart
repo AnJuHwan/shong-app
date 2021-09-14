@@ -33,7 +33,7 @@ class FirebaseAuthSignUp extends GetxController {
 
   // 로그인 기능은 되는데 , login_page 에서 2번을 눌러야 페이지 이동이 됨 ,
   // home 에서 로그아웃을 누르면 uid 안없어짐
-  Future<void> signin(email, password) async {
+  Future<String> signin(email, password) async {
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -43,9 +43,12 @@ class FirebaseAuthSignUp extends GetxController {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('현재 가입된 이메일이 없습니다.');
+        return 'not-found';
       } else if (e.code == 'wrong-password') {
         print('비밀번호가 잘못 되었습니다.');
+        return 'wrong-password';
       }
     }
+    return '성공';
   }
 }
