@@ -58,14 +58,15 @@ class _PostingItemState extends State<PostingItem> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Obx(() => Text('${_controller.title[index]}')),
+                          Obx(() => Text(
+                              '${_controller.title.reversed.toList()[index]}')),
                           IconButton(
                             onPressed: () {
                               setState(() {
                                 length = _controller.title.length - 1;
                               });
-                              _controller.title
-                                  .remove(_controller.title[index]);
+                              _controller.title.remove(
+                                  _controller.title.reversed.toList()[index]);
                             },
                             icon: Icon(Icons.delete),
                           )

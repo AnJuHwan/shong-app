@@ -69,7 +69,7 @@ class _PostingDetailState extends State<PostingDetail> {
                     ),
                     Obx(
                       () => Text(
-                        '${controller.title[widget.index]}',
+                        '${controller.title.reversed.toList()[widget.index]}',
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
@@ -82,7 +82,7 @@ class _PostingDetailState extends State<PostingDetail> {
                   padding: EdgeInsets.all(10),
                   width: width,
                   child: Text(
-                    '${controller.post[widget.index]}',
+                    '${controller.post.reversed.toList()[widget.index]}',
                     textAlign: TextAlign.start,
                   ),
                 ),
