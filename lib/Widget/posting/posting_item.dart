@@ -15,16 +15,23 @@ final double height = Get.height;
 Controller _controller = Get.put(Controller());
 
 class _PostingItemState extends State<PostingItem> {
-  int length = Get.put(Controller()).title.length;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return RefreshIndicator(
+      onRefresh: () async {
+        setState(() {
+          Get.put(Controller()).title.length;
+        });
+      },
+      child: Container(
         height: height * 0.70,
         child: ListView.separated(
-          itemCount: length,
+          itemCount: Get.put(Controller()).title.length,
           itemBuilder: (_, index) => item(index: index),
           separatorBuilder: (_, index) => Divider(),
-        ));
+        ),
+      ),
+    );
   }
 
   Widget item({required int index}) {
@@ -58,15 +65,14 @@ class _PostingItemState extends State<PostingItem> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Obx(() => Text(
-                              '${_controller.title.reversed.toList()[index]}')),
+                          Text('${_controller.title.reversed.toList()[index]}'),
                           IconButton(
                             onPressed: () {
-                              setState(() {
-                                length = _controller.title.length - 1;
-                              });
                               _controller.title.remove(
                                   _controller.title.reversed.toList()[index]);
+                              setState(() {
+                                _controller.title.length;
+                              });
                             },
                             icon: Icon(Icons.delete),
                           )

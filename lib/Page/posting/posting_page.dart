@@ -43,7 +43,7 @@ class _PostingPageState extends State<PostingPage> {
                   } else {
                     controller.title.add(title);
                     controller.post.add(posting);
-                    Get.to(() => Home());
+                    Get.off(() => Home());
                   }
                 },
                 child: Center(
