@@ -12,4 +12,10 @@ class Controller extends GetxController {
   void addPost(post) {
     post.add(post);
   }
+
+  void addPostingImage(iamge) {
+    postingImage.add(iamge);
+  }
+
+  RxList postingImage = [].obs;
 }
