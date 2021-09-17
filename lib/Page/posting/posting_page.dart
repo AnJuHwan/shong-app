@@ -26,10 +26,14 @@ class _PostingPageState extends State<PostingPage> {
 
   void selectImages() async {
     final List<XFile>? selectedImages = await _picker.pickMultiImage();
-    if (selectedImages!.isNotEmpty) {
-      setState(() {
-        imageItems.addAll(selectedImages);
-      });
+    try {
+      if (selectedImages!.isNotEmpty) {
+        setState(() {
+          imageItems.addAll(selectedImages);
+        });
+      } else {}
+    } catch (e) {
+      print(e);
     }
     print('image List length : ${imageItems.length.toString()}');
   }
@@ -56,14 +60,14 @@ class _PostingPageState extends State<PostingPage> {
                 onTap: () {
                   posting.length != 0 ? posting : '';
                   if (title.length == 0) {
-                    for (int i = 0; i < imageItems.length; i++) {
-                      controller.postingImage.add(File(imageItems[i].path));
-                    }
-
                     return;
                   } else {
                     controller.title.add(title);
                     controller.post.add(posting);
+                    for (int i = 0; i < imageItems.length; i++) {
+                      controller.postingImage.add(File(imageItems[i].path));
+                    }
+
                     Get.off(() => Home());
                   }
                 },
@@ -153,6 +157,11 @@ class _PostingPageState extends State<PostingPage> {
                               itemBuilder: (context, index) {
                                 getIndex = index;
                                 return Container(
+                                  // width: 200,
+                                  constraints: BoxConstraints(
+                                    minWidth: 100,
+                                    maxWidth: 300,
+                                  ),
                                   decoration: BoxDecoration(
                                     border: Border.all(width: 0.5),
                                     borderRadius: BorderRadius.circular(10),
@@ -162,7 +171,7 @@ class _PostingPageState extends State<PostingPage> {
                                     borderRadius: BorderRadius.circular(10),
                                     child: Image.file(
                                       File(imageItems[index].path),
-                                      fit: BoxFit.contain,
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
                                 );

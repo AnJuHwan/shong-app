@@ -44,15 +44,21 @@ class _PostingItemState extends State<PostingItem> {
           margin: EdgeInsets.symmetric(vertical: 5),
           width: width,
           height: 100,
-          color: Colors.red,
+          decoration: BoxDecoration(
+            color: Colors.grey[200],
+            border: Border.all(width: 0.5),
+            borderRadius: BorderRadius.circular(5),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               // 이미지 사진
               Container(
-                child: Image.asset(
-                  './images/test_1.png',
-                  fit: BoxFit.contain,
+                constraints: BoxConstraints(maxWidth: 200),
+                height: height,
+                child: Image.file(
+                  _controller.postingImage[0],
+                  fit: BoxFit.cover,
                 ),
               ),
               ////
