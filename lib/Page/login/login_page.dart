@@ -20,17 +20,45 @@ String loginId = '';
 String loginPassword = '';
 var currentUser = FirebaseAuth.instance.currentUser;
 
-void currentUserFn() {
-  if (currentUser != null) {
-    Get.off(() => Home());
-    print(currentUser!.uid);
-  } else {
-    print('로그인이 안되어있습니다.');
-  }
-}
-
 class _LoginPageState extends State<LoginPage> {
   FirebaseAuthSignUp _controller = Get.put(FirebaseAuthSignUp());
+
+  void currentUserFn() {
+    if (currentUser != null) {
+      Get.off(() => Home());
+      print(currentUser!.uid);
+    } else {
+      print('로그인이 안되어있습니다.');
+    }
+  }
+
+  void signup() {
+    _controller.singup(id, password).then((result) {
+      if (result == 'already') {
+        return showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('회원가입 실패'),
+            content: const Text('이미가입'),
+          ),
+        );
+      } else if (result == 'ss') {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('회원가입 실패'),
+            content: const Text('비밀번호 보안 약함'),
+          ),
+        );
+      } else if (result == '성공') {
+        print('$id $password');
+        // id , password 를 user에 저장할거임
+        // 그리고 @naver.com (이메일을 붙였을때 validation 설정 해야댐)
+        Get.off(() => Home());
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final double width = Get.width;
@@ -56,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
               decoration: BoxDecoration(
                   color: Colors.blueGrey[200],
                   borderRadius: BorderRadius.circular(15)),
-              child: _isLoginForm ? LoginForm() : SignUpForm(),
+              child: _isLoginForm ? loginForm() : signUpForm(),
             ),
           ),
         ),
@@ -64,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget LoginForm() {
+  Widget loginForm() {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -106,12 +134,24 @@ class _LoginPageState extends State<LoginPage> {
 
               _controller.signin(loginId, loginPassword).then((value) {
                 if (value == 'not-found') {
-                  // 가입된 아이디를 찾을 수 없습니다.
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('로그인 실패'),
+                      content: const Text('아이디를 찾을 수 없습니다.'),
+                    ),
+                  );
                 } else if (value == 'wrong-password') {
-                  // 비밀번호가 잘못 되었습니다.
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('로그인 실패'),
+                      content: const Text('비밀번호를 다시 확인해주세요'),
+                    ),
+                  );
                 } else if (value == '성공') {
-                  // Home으로 돌아가기
                   currentUserFn();
+                  Get.off(() => Home());
                 }
               });
             },
@@ -144,7 +184,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget SignUpForm() {
+  Widget signUpForm() {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -158,7 +198,7 @@ class _LoginPageState extends State<LoginPage> {
             child: TextField(
               onChanged: (text) {
                 setState(() {
-                  id = '${text}@naver.com';
+                  id = text;
                 });
               },
               decoration: InputDecoration(
@@ -193,32 +233,23 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           ElevatedButton(
-            onPressed: () async {
-              _controller.singup(id, password).then((result) {
-                if (result == 'already') {
-                  return showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: const Text('AlertDialog'),
-                      content: const Text('이미가입'),
-                    ),
-                  );
-                } else if (result == 'ss') {
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: const Text('AlertDialog'),
-                      content: const Text('비밀번호 보안 약함'),
-                    ),
-                  );
-                } else if (result == '성공') {
-                  print('$id $password');
-                  // id , password 를 user에 저장할거임
-                  // 그리고 @naver.com (이메일을 붙였을때 validation 설정 해야댐)
-                  Get.off(() => Home());
-                }
-              });
+            onPressed: () {
+              id.length == 0 ? '' : signup();
+              password.length != 0
+                  ? ''
+                  : showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('회원가입 실패'),
+                        content: const Text('비밀번호 입력하세요'),
+                      ),
+                    );
             },
+            style: ButtonStyle(
+              backgroundColor: id.length == 0
+                  ? MaterialStateProperty.all(Colors.grey[400])
+                  : MaterialStateProperty.all(Colors.blue[400]),
+            ),
             child: Text('회원가입완료'),
           ),
           Container(

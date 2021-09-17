@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shong_app/GetX_Controller/getx_controller.dart';
 import 'package:shong_app/Page/home/home_page.dart';
 import 'package:shong_app/Page/login/login_page.dart';
 import 'package:shong_app/Page/second/second_page.dart';

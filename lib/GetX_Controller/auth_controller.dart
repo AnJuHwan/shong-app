@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
-import 'package:shong_app/Page/login/login_page.dart';
 
 class FirebaseAuthSignUp extends GetxController {
   final auth = FirebaseAuth.instance;
@@ -15,6 +13,7 @@ class FirebaseAuthSignUp extends GetxController {
         email: email,
         password: password,
       );
+      return '성공';
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('비밀번호의 보안이 약합니다.');
@@ -27,8 +26,7 @@ class FirebaseAuthSignUp extends GetxController {
       print('실패');
       return '실패';
     }
-
-    return '성공';
+    return '';
   }
 
   // 로그인 기능은 되는데 , login_page 에서 2번을 눌러야 페이지 이동이 됨 ,
@@ -40,6 +38,7 @@ class FirebaseAuthSignUp extends GetxController {
         email: email,
         password: password,
       );
+      return '성공';
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('현재 가입된 이메일이 없습니다.');
@@ -49,6 +48,6 @@ class FirebaseAuthSignUp extends GetxController {
         return 'wrong-password';
       }
     }
-    return '성공';
+    return '';
   }
 }
