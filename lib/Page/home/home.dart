@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:shong_app/Page/home/home_page.dart';
 import 'package:shong_app/Page/login/login_page.dart';
 import 'package:shong_app/Page/second/second_page.dart';
-import 'package:shong_app/Page/third/third_page.dart';
+import 'package:shong_app/Page/user_page/user_page.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

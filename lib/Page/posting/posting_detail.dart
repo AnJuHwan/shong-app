@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shong_app/GetX_Controller/getx_controller.dart';
@@ -34,27 +35,25 @@ class _PostingDetailState extends State<PostingDetail> {
                 width: width,
                 height: height * 0.4,
                 color: Colors.blueGrey[100],
-                child: Stack(
-                  children: [
-                    Center(
-                      child: Container(
-                        width: width * 0.8,
-                        height: height * 0.3,
+                child: CarouselSlider(
+                    items: controller.postingImage.map((image) {
+                      return Container(
+                        width: width * 0.75,
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: Image.asset(
-                            './images/test_1.png',
-                            fit: BoxFit.fill,
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.file(
+                            image,
+                            fit: BoxFit.contain,
                           ),
-                        ), // 이미지가 있으면 이미지 , 없으면 아이콘으로 후에 바꿀 것
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.blueGrey[200],
                         ),
-                      ),
-                    )
-                  ],
-                ),
+                      );
+                    }).toList(),
+                    options: CarouselOptions(
+                      aspectRatio: 2.0,
+                      enlargeCenterPage: true,
+                      scrollDirection: Axis.horizontal,
+                      autoPlay: true,
+                    )),
               ),
               Container(
                 padding: EdgeInsets.all(10),
