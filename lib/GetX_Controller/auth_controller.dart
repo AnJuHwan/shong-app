@@ -29,8 +29,6 @@ class FirebaseAuthSignUp extends GetxController {
     return '';
   }
 
-  // 로그인 기능은 되는데 , login_page 에서 2번을 눌러야 페이지 이동이 됨 ,
-  // home 에서 로그아웃을 누르면 uid 안없어짐
   Future<String> signin(email, password) async {
     try {
       UserCredential userCredential =

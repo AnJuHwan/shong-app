@@ -27,6 +27,7 @@ class _HomeState extends State<Home> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.pink[50],
           elevation: 0.5,
           title: Text('숑앱', style: TextStyle(color: Colors.black54)),
           centerTitle: true,
@@ -77,9 +78,6 @@ class _HomeState extends State<Home> {
               label: '프로필',
             )
           ],
-        ),
-        drawer: Drawer(
-          child: Text('hello'),
         ),
         body: page[_currentIndex],
       ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shong_app/GetX_Controller/getx_controller.dart';
+import 'package:shong_app/GetX_Controller/image_upload_controller.dart';
 import 'package:shong_app/Page/home/home.dart';
 
 class PostingPage extends StatefulWidget {
@@ -23,6 +24,7 @@ class _PostingPageState extends State<PostingPage> {
 
   final double width = Get.width;
   Controller controller = Get.put(Controller());
+  FirebaseImageStore imageController = Get.put(FirebaseImageStore());
 
   void selectImages() async {
     final List<XFile>? selectedImages = await _picker.pickMultiImage();
@@ -66,8 +68,8 @@ class _PostingPageState extends State<PostingPage> {
                     controller.post.add(posting);
                     for (int i = 0; i < imageItems.length; i++) {
                       controller.postingImage.add(File(imageItems[i].path));
+                      imageController.uploadImage(File(imageItems[i].path));
                     }
-
                     Get.off(() => Home());
                   }
                 },
