@@ -19,8 +19,6 @@ final double height = Get.height;
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
 
-  var currentUser = FirebaseAuth.instance.currentUser;
-
   @override
   Widget build(BuildContext context) {
     final List page = [HomePage(), SecondPage(), ThirdPage()];

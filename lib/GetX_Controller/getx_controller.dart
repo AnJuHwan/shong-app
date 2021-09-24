@@ -5,5 +5,5 @@ class Controller extends GetxController {
 
   RxList post = [].obs;
 
-  RxList postingImage = [].obs;
+  RxList<dynamic> postingImage = [].obs;
 }

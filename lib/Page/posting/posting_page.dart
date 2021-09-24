@@ -32,12 +32,12 @@ class _PostingPageState extends State<PostingPage> {
       if (selectedImages!.isNotEmpty) {
         setState(() {
           imageItems.addAll(selectedImages);
+          print('image List length : ${imageItems.length.toString()}');
         });
       } else {}
     } catch (e) {
       print(e);
     }
-    print('image List length : ${imageItems.length.toString()}');
   }
 
   @override
@@ -61,17 +61,18 @@ class _PostingPageState extends State<PostingPage> {
               GestureDetector(
                 onTap: () {
                   posting.length != 0 ? posting : '';
+                  controller.postingImage.addAll({imageItems});
                   if (title.length == 0) {
                     return;
                   } else {
                     controller.title.add(title);
                     controller.post.add(posting);
-                    for (int i = 0; i < imageItems.length; i++) {
-                      controller.postingImage.add(File(imageItems[i].path));
-                      imageController.uploadImage(File(imageItems[i].path));
-                    }
+                    print(controller.postingImage);
                     Get.off(() => Home());
                   }
+                  // 클릭한 게시글 index를 통해서 함수로 전달한 후 detail 페이지에
+                  // controller.postingImage controller에 index를 가져와 Xfile의
+                  // 변수를 File변수로 바꿔서 posting detail 페이지에 뿌려줌
                 },
                 child: Center(
                   child: Container(

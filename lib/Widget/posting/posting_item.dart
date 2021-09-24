@@ -56,10 +56,10 @@ class _PostingItemState extends State<PostingItem> {
               Container(
                 constraints: BoxConstraints(maxWidth: 200),
                 height: height,
-                child: Image.file(
-                  _controller.postingImage[0],
-                  fit: BoxFit.cover,
-                ),
+                // child: Image.file(
+                //   _controller.postingImage[0],
+                //   fit: BoxFit.cover,
+                // ),
               ),
               ////
               Expanded(
