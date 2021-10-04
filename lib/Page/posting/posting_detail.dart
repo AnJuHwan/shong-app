@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shong_app/GetX_Controller/getx_controller.dart';
 
 class PostingDetail extends StatefulWidget {
   final int index;
@@ -12,7 +11,6 @@ class PostingDetail extends StatefulWidget {
 }
 
 class _PostingDetailState extends State<PostingDetail> {
-  Controller controller = Get.put(Controller());
   @override
   Widget build(BuildContext context) {
     final double width = Get.width;
@@ -36,18 +34,7 @@ class _PostingDetailState extends State<PostingDetail> {
                 height: height * 0.4,
                 color: Colors.blueGrey[100],
                 child: CarouselSlider(
-                    items: controller.postingImage.map((image) {
-                      return Container(
-                        width: width * 0.75,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.file(
-                            image,
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      );
-                    }).toList(),
+                    items: [],
                     options: CarouselOptions(
                       aspectRatio: 2.0,
                       enlargeCenterPage: true,
@@ -66,11 +53,9 @@ class _PostingDetailState extends State<PostingDetail> {
                     SizedBox(
                       height: 2,
                     ),
-                    Obx(
-                      () => Text(
-                        '${controller.title.reversed.toList()[widget.index]}',
-                        style: TextStyle(fontSize: 20),
-                      ),
+                    Text(
+                      'test1',
+                      style: TextStyle(fontSize: 20),
                     ),
                   ],
                 ),
@@ -81,7 +66,7 @@ class _PostingDetailState extends State<PostingDetail> {
                   padding: EdgeInsets.all(10),
                   width: width,
                   child: Text(
-                    '${controller.post.reversed.toList()[widget.index]}',
+                    'test2',
                     textAlign: TextAlign.start,
                   ),
                 ),

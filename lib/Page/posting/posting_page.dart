@@ -1,10 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shong_app/GetX_Controller/getx_controller.dart';
-import 'package:shong_app/GetX_Controller/image_upload_controller.dart';
 import 'package:shong_app/Page/home/home.dart';
 
 class PostingPage extends StatefulWidget {
@@ -23,8 +20,6 @@ class _PostingPageState extends State<PostingPage> {
   var getIndex;
 
   final double width = Get.width;
-  Controller controller = Get.put(Controller());
-  FirebaseImageStore imageController = Get.put(FirebaseImageStore());
 
   void selectImages() async {
     final List<XFile>? selectedImages = await _picker.pickMultiImage();
@@ -59,21 +54,7 @@ class _PostingPageState extends State<PostingPage> {
             ),
             actions: [
               GestureDetector(
-                onTap: () {
-                  posting.length != 0 ? posting : '';
-                  controller.postingImage.addAll({imageItems});
-                  if (title.length == 0) {
-                    return;
-                  } else {
-                    controller.title.add(title);
-                    controller.post.add(posting);
-                    print(controller.postingImage);
-                    Get.off(() => Home());
-                  }
-                  // 클릭한 게시글 index를 통해서 함수로 전달한 후 detail 페이지에
-                  // controller.postingImage controller에 index를 가져와 Xfile의
-                  // 변수를 File변수로 바꿔서 posting detail 페이지에 뿌려줌
-                },
+                onTap: () {},
                 child: Center(
                   child: Container(
                     margin: EdgeInsets.only(right: 10),
@@ -160,7 +141,6 @@ class _PostingPageState extends State<PostingPage> {
                               itemBuilder: (context, index) {
                                 getIndex = index;
                                 return Container(
-                                  // width: 200,
                                   constraints: BoxConstraints(
                                     minWidth: 100,
                                     maxWidth: 300,

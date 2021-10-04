@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shong_app/GetX_Controller/auth_controller.dart';
-import 'package:shong_app/Page/home/home.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -21,44 +19,6 @@ String loginPassword = '';
 var currentUser = FirebaseAuth.instance.currentUser;
 
 class _LoginPageState extends State<LoginPage> {
-  FirebaseAuthSignUp _controller = Get.put(FirebaseAuthSignUp());
-
-  void currentUserFn() {
-    if (currentUser != null) {
-      Get.off(() => Home());
-      print(currentUser!.uid);
-    } else {
-      print('로그인이 안되어있습니다.');
-    }
-  }
-
-  void signup() {
-    _controller.singup(id, password).then((result) {
-      if (result == 'already') {
-        return showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('회원가입 실패'),
-            content: const Text('이미가입'),
-          ),
-        );
-      } else if (result == 'ss') {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('회원가입 실패'),
-            content: const Text('비밀번호 보안 약함'),
-          ),
-        );
-      } else if (result == '성공') {
-        print('$id $password');
-        // id , password 를 user에 저장할거임
-        // 그리고 @naver.com (이메일을 붙였을때 validation 설정 해야댐)
-        Get.off(() => Home());
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final double width = Get.width;
@@ -104,9 +64,7 @@ class _LoginPageState extends State<LoginPage> {
           Container(
             margin: EdgeInsets.symmetric(vertical: 15),
             child: TextField(
-              onChanged: (text) {
-                loginId = text;
-              },
+              onChanged: (text) {},
               decoration: InputDecoration(
                 hintText: 'ID',
                 contentPadding: EdgeInsets.only(left: 5),
@@ -117,11 +75,7 @@ class _LoginPageState extends State<LoginPage> {
             margin: EdgeInsets.symmetric(vertical: 15),
             child: TextField(
               obscureText: true,
-              onChanged: (text) {
-                setState(() {
-                  loginPassword = text;
-                });
-              },
+              onChanged: (text) {},
               decoration: InputDecoration(
                 hintText: 'PASSWORD',
                 contentPadding: EdgeInsets.only(left: 5),
@@ -129,32 +83,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           ElevatedButton(
-            onPressed: () {
-              // _controller.signin(loginId, loginPassword);
-
-              _controller.signin(loginId, loginPassword).then((value) {
-                if (value == 'not-found') {
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: const Text('로그인 실패'),
-                      content: const Text('아이디를 찾을 수 없습니다.'),
-                    ),
-                  );
-                } else if (value == 'wrong-password') {
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: const Text('로그인 실패'),
-                      content: const Text('비밀번호를 다시 확인해주세요'),
-                    ),
-                  );
-                } else if (value == '성공') {
-                  currentUserFn();
-                  Get.off(() => Home());
-                }
-              });
-            },
+            onPressed: () {},
             child: Text('로그인하기'),
           ),
           Container(
@@ -197,9 +126,7 @@ class _LoginPageState extends State<LoginPage> {
             margin: EdgeInsets.symmetric(vertical: 15),
             child: TextField(
               onChanged: (text) {
-                setState(() {
-                  id = text;
-                });
+                setState(() {});
               },
               decoration: InputDecoration(
                 hintText: '아이디',
@@ -210,11 +137,7 @@ class _LoginPageState extends State<LoginPage> {
           Container(
             margin: EdgeInsets.symmetric(vertical: 15),
             child: TextField(
-              onChanged: (text) {
-                setState(() {
-                  password = text;
-                });
-              },
+              onChanged: (text) {},
               obscureText: true,
               decoration: InputDecoration(
                 hintText: '비밀번호',
@@ -233,18 +156,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           ElevatedButton(
-            onPressed: () {
-              id.length == 0 ? '' : signup();
-              password.length != 0
-                  ? ''
-                  : showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text('회원가입 실패'),
-                        content: const Text('비밀번호 입력하세요'),
-                      ),
-                    );
-            },
+            onPressed: () {},
             style: ButtonStyle(
               backgroundColor: id.length == 0
                   ? MaterialStateProperty.all(Colors.grey[400])

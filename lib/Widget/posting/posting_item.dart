@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shong_app/GetX_Controller/getx_controller.dart';
+
 import 'package:shong_app/Page/posting/posting_detail.dart';
 
 class PostingItem extends StatefulWidget {
@@ -12,21 +12,18 @@ class PostingItem extends StatefulWidget {
 
 final double width = Get.width;
 final double height = Get.height;
-Controller _controller = Get.put(Controller());
 
 class _PostingItemState extends State<PostingItem> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async {
-        setState(() {
-          Get.put(Controller()).title.length;
-        });
+        setState(() {});
       },
       child: Container(
         height: height * 0.70,
         child: ListView.separated(
-          itemCount: Get.put(Controller()).title.length,
+          itemCount: 0,
           itemBuilder: (_, index) => item(index: index),
           separatorBuilder: (_, index) => Divider(),
         ),
@@ -52,14 +49,13 @@ class _PostingItemState extends State<PostingItem> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // 이미지 사진
               Container(
                 constraints: BoxConstraints(maxWidth: 200),
                 height: height,
-                // child: Image.file(
-                //   _controller.postingImage[0],
-                //   fit: BoxFit.cover,
-                // ),
+                child: Image.asset(
+                  './images/test_1.png',
+                  fit: BoxFit.cover,
+                ),
               ),
               ////
               Expanded(
@@ -71,15 +67,9 @@ class _PostingItemState extends State<PostingItem> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('${_controller.title.reversed.toList()[index]}'),
+                          Text('임시1'),
                           IconButton(
-                            onPressed: () {
-                              _controller.title.remove(
-                                  _controller.title.reversed.toList()[index]);
-                              setState(() {
-                                _controller.title.length;
-                              });
-                            },
+                            onPressed: () {},
                             icon: Icon(Icons.delete),
                           )
                         ],
