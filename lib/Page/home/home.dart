@@ -33,17 +33,7 @@ class _HomeState extends State<Home> {
             Container(
                 margin: EdgeInsets.all(10),
                 child: ElevatedButton(
-                  onPressed: () async {
-                    if (currentUser != null) {
-                      await FirebaseAuth.instance.signOut();
-                      setState(() {
-                        currentUser = null;
-                      });
-                      print('로그아웃');
-                    } else if (currentUser == null) {
-                      Get.to(() => LoginPage());
-                    }
-                  },
+                  onPressed: () {},
                   child: Text(currentUser != null ? '로그아웃' : '로그인하기',
                       style: TextStyle(color: Colors.black54)),
                   style: ButtonStyle(
