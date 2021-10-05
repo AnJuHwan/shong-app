@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shong_app/GetX_Controller/auth_controller.dart';
@@ -7,6 +6,9 @@ import 'package:shong_app/Page/login/login_page.dart';
 import 'package:shong_app/Page/second/second_page.dart';
 import 'package:shong_app/Page/user_page/user_page.dart';
 
+// 로그인 , 회원가입 했을 때 렌더 되었을 때 , currentUser 적용이 안됨 ,
+// 그래서 로그인하기 , 로그아웃하기 버튼이 안바뀜 ,
+// auth_controller에서 user을 받아 Obx 처리 해야될듯?
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -22,6 +24,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAuthSignUp _controller = Get.put(FirebaseAuthSignUp());
     final List page = [HomePage(), SecondPage(), ThirdPage()];
     return SafeArea(
       child: Scaffold(
@@ -35,13 +38,14 @@ class _HomeState extends State<Home> {
                 margin: EdgeInsets.all(10),
                 child: ElevatedButton(
                   onPressed: () {
-                    if (currentUser != null) {
+                    if (_controller.currentUser != null) {
                       Get.put(FirebaseAuthSignUp()).signOut();
-                    } else if (currentUser == null) {
+                    } else if (_controller.currentUser == null) {
                       Get.to(() => LoginPage());
                     }
                   },
-                  child: Text(currentUser != null ? '로그아웃' : '로그인하기',
+                  child: Text(
+                      _controller.currentUser != null ? '로그아웃' : '로그인하기',
                       style: TextStyle(color: Colors.black54)),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.pink[50]),

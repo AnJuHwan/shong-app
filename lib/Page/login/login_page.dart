@@ -13,8 +13,8 @@ class LoginPage extends StatefulWidget {
 
 bool _isLoginForm = true;
 
-String id = '';
-String password = '';
+String signupId = '';
+String signupPassword = '';
 
 String loginId = '';
 String loginPassword = '';
@@ -23,41 +23,86 @@ FirebaseAuthSignUp _controller = Get.put(FirebaseAuthSignUp());
 
 class _LoginPageState extends State<LoginPage> {
   void signin() {
-    _controller.signin(loginId, loginPassword).then((result) {
-      if (result == 'not-found') {
+    _controller.signin(loginId, loginPassword).then(
+      (result) {
+        if (result == 'not-found') {
+          return showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('현재 가입된 이메일이 없습니다.'),
+              content: const Text('가입된 이메일이 없습니다.'),
+            ),
+          );
+        } else if (result == 'wrong-password') {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('비밀번호가 잘못되었습니다'),
+              content: const Text('비밀번호가 잘못되었습니다.'),
+            ),
+          );
+        } else if (result == 'user-disabled') {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('정지된 이메일 입니다.'),
+              content: const Text('정지된 이메일 입니다.'),
+            ),
+          );
+        } else if (result == 'invalid-email') {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text(' 이메일 주소가 유효하지 않습니다. '),
+              content: const Text(' 이메일 주소가 유효하지 않습니다. '),
+            ),
+          );
+        } else if (result == '성공') {
+          print('$loginId $loginPassword');
+
+          Get.off(() => Home());
+        }
+      },
+    );
+  }
+
+  void signup() {
+    _controller.singup(signupId, signupPassword).then((result) {
+      if (result == 'weak-password') {
         return showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text('현재 가입된 이메일이 없습니다.'),
-            content: const Text('가입된 이메일이 없습니다.'),
+            title: const Text('비밀번호 보안이 약합니다.'),
+            content: const Text('비밀번호 보안이 약합니다.'),
           ),
         );
-      } else if (result == 'wrong-password') {
+      } else if (result == 'already-in-use') {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text('비밀번호가 잘못되었습니다'),
-            content: const Text('비밀번호가 잘못되었습니다.'),
-          ),
-        );
-      } else if (result == 'user-disabled') {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('정지된 이메일 입니다.'),
-            content: const Text('정지된 이메일 입니다.'),
+            title: const Text('이미 가입된 아이디가 있습니다.'),
+            content: const Text('이미 가입된 아이디가 있습니다.'),
           ),
         );
       } else if (result == 'invalid-email') {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text(' 이메일 주소가 유효하지 않습니다. '),
-            content: const Text(' 이메일 주소가 유효하지 않습니다. '),
+            title: const Text('이메일 주소가 유효하지 않습니다.'),
+            content: const Text('이메일 주소가 유효하지 않습니다.'),
+          ),
+        );
+      } else if (result == 'operation-not-allowed') {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text(' 이메일/비밀번호 계정을 입력해주세요'),
+            content: const Text(' 이메일/비밀번호 계정을 입력해주세요'),
           ),
         );
       } else if (result == '성공') {
-        print('$id $password');
+        print('$loginId $loginPassword');
+
         Get.off(() => Home());
       }
     });
@@ -109,7 +154,9 @@ class _LoginPageState extends State<LoginPage> {
             margin: EdgeInsets.symmetric(vertical: 15),
             child: TextField(
               onChanged: (text) {
-                loginId = text;
+                setState(() {
+                  loginId = text;
+                });
               },
               decoration: InputDecoration(
                 hintText: 'ID',
@@ -122,7 +169,9 @@ class _LoginPageState extends State<LoginPage> {
             child: TextField(
               obscureText: true,
               onChanged: (text) {
-                loginPassword = text;
+                setState(() {
+                  loginPassword = text;
+                });
               },
               decoration: InputDecoration(
                 hintText: 'PASSWORD',
@@ -132,6 +181,16 @@ class _LoginPageState extends State<LoginPage> {
           ),
           ElevatedButton(
             onPressed: () {
+              if (loginId.length == 0 || loginPassword.length == 0) {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text('이메일/비밀번호 입력해주세요'),
+                    content: const Text('이메일/비밀번호 입력해주세요'),
+                  ),
+                );
+              }
+
               signin();
             },
             child: Text('로그인하기'),
@@ -176,7 +235,9 @@ class _LoginPageState extends State<LoginPage> {
             margin: EdgeInsets.symmetric(vertical: 15),
             child: TextField(
               onChanged: (text) {
-                setState(() {});
+                setState(() {
+                  signupId = text;
+                });
               },
               decoration: InputDecoration(
                 hintText: '아이디',
@@ -187,7 +248,11 @@ class _LoginPageState extends State<LoginPage> {
           Container(
             margin: EdgeInsets.symmetric(vertical: 15),
             child: TextField(
-              onChanged: (text) {},
+              onChanged: (text) {
+                setState(() {
+                  signupPassword = text;
+                });
+              },
               obscureText: true,
               decoration: InputDecoration(
                 hintText: '비밀번호',
@@ -206,9 +271,11 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              signup();
+            },
             style: ButtonStyle(
-              backgroundColor: id.length == 0
+              backgroundColor: signupId.length == 0
                   ? MaterialStateProperty.all(Colors.grey[400])
                   : MaterialStateProperty.all(Colors.blue[400]),
             ),

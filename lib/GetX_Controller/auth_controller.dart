@@ -5,6 +5,8 @@ class FirebaseAuthSignUp extends GetxController {
   final FirebaseAuth auth = FirebaseAuth.instance;
   var currentUser = FirebaseAuth.instance.currentUser;
 
+  // RxString user = "".obs;
+
   Future<String?> singup(email, password) async {
     try {
       UserCredential userCredential =
@@ -61,5 +63,6 @@ class FirebaseAuthSignUp extends GetxController {
 
   signOut() async {
     await FirebaseAuth.instance.signOut();
+    // user = "".obs;
   }
 }
