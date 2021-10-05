@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shong_app/GetX_Controller/auth_controller.dart';
+import 'package:shong_app/Page/home/home.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -17,8 +19,50 @@ String password = '';
 String loginId = '';
 String loginPassword = '';
 var currentUser = FirebaseAuth.instance.currentUser;
+FirebaseAuthSignUp _controller = Get.put(FirebaseAuthSignUp());
 
 class _LoginPageState extends State<LoginPage> {
+  void signin() {
+    _controller.signin(loginId, loginPassword).then((result) {
+      if (result == 'not-found') {
+        return showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('현재 가입된 이메일이 없습니다.'),
+            content: const Text('가입된 이메일이 없습니다.'),
+          ),
+        );
+      } else if (result == 'wrong-password') {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('비밀번호가 잘못되었습니다'),
+            content: const Text('비밀번호가 잘못되었습니다.'),
+          ),
+        );
+      } else if (result == 'user-disabled') {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('정지된 이메일 입니다.'),
+            content: const Text('정지된 이메일 입니다.'),
+          ),
+        );
+      } else if (result == 'invalid-email') {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text(' 이메일 주소가 유효하지 않습니다. '),
+            content: const Text(' 이메일 주소가 유효하지 않습니다. '),
+          ),
+        );
+      } else if (result == '성공') {
+        print('$id $password');
+        Get.off(() => Home());
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final double width = Get.width;
@@ -64,7 +108,9 @@ class _LoginPageState extends State<LoginPage> {
           Container(
             margin: EdgeInsets.symmetric(vertical: 15),
             child: TextField(
-              onChanged: (text) {},
+              onChanged: (text) {
+                loginId = text;
+              },
               decoration: InputDecoration(
                 hintText: 'ID',
                 contentPadding: EdgeInsets.only(left: 5),
@@ -75,7 +121,9 @@ class _LoginPageState extends State<LoginPage> {
             margin: EdgeInsets.symmetric(vertical: 15),
             child: TextField(
               obscureText: true,
-              onChanged: (text) {},
+              onChanged: (text) {
+                loginPassword = text;
+              },
               decoration: InputDecoration(
                 hintText: 'PASSWORD',
                 contentPadding: EdgeInsets.only(left: 5),
@@ -83,7 +131,9 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              signin();
+            },
             child: Text('로그인하기'),
           ),
           Container(
