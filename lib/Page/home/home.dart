@@ -40,9 +40,14 @@ class _HomeState extends State<Home> {
                   onPressed: () {
                     if (_controller.currentUser != null) {
                       Get.put(FirebaseAuthSignUp()).signOut();
+                      setState(() {
+                        _controller.currentUser = null;
+                      });
                     } else if (_controller.currentUser == null) {
                       Get.to(() => LoginPage());
+                      _controller.currentUser = null;
                     }
+                    print(_controller.currentUser);
                   },
                   child: Text(
                       _controller.currentUser != null ? '로그아웃' : '로그인하기',

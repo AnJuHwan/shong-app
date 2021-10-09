@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shong_app/GetX_Controller/auth_controller.dart';
 
 import 'package:shong_app/Page/posting/posting_detail.dart';
 

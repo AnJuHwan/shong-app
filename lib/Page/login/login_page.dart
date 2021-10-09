@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
     _controller.signin(loginId, loginPassword).then(
       (result) {
         if (result == 'not-found') {
-          return showDialog(
+          showDialog(
             context: context,
             builder: (context) => AlertDialog(
               title: const Text('현재 가입된 이메일이 없습니다.'),
@@ -60,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
         } else if (result == '성공') {
           print('$loginId $loginPassword');
 
-          Get.off(() => Home());
+          Get.offAll(() => Home());
         }
       },
     );
@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
   void signup() {
     _controller.singup(signupId, signupPassword).then((result) {
       if (result == 'weak-password') {
-        return showDialog(
+        showDialog(
           context: context,
           builder: (context) => AlertDialog(
             title: const Text('비밀번호 보안이 약합니다.'),
@@ -103,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
       } else if (result == '성공') {
         print('$loginId $loginPassword');
 
-        Get.off(() => Home());
+        Get.offAll(() => Home());
       }
     });
   }

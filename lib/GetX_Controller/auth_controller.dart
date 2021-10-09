@@ -65,4 +65,14 @@ class FirebaseAuthSignUp extends GetxController {
     await FirebaseAuth.instance.signOut();
     // user = "".obs;
   }
+
+  // isUser() {
+  //   FirebaseAuth.instance.authStateChanges().listen((User? user) {
+  //     if (user == null) {
+  //       print('유저가 없습니다');
+  //     } else {
+  //       print('유저가 있습니다.');
+  //     }
+  //   });
+  // }
 }
