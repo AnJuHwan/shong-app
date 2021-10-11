@@ -59,6 +59,10 @@ class _LoginPageState extends State<LoginPage> {
           );
         } else if (result == '성공') {
           print('$loginId $loginPassword');
+          setState(() {
+            loginId = '';
+            loginPassword = '';
+          });
 
           Get.offAll(() => Home());
         }
@@ -102,6 +106,10 @@ class _LoginPageState extends State<LoginPage> {
         );
       } else if (result == '성공') {
         print('$loginId $loginPassword');
+        setState(() {
+          signupId = '';
+          signupPassword = '';
+        });
 
         Get.offAll(() => Home());
       }
@@ -190,7 +198,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 );
               }
-
               signin();
             },
             child: Text('로그인하기'),
